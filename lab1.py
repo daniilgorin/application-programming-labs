@@ -62,7 +62,7 @@ def main():
         data = read_file(args.file_name)
         names = extract_names(data)
         most_common_name = find_most_common_name(names)
-        print(f"Наиболее часто встречающееся имя: {most_common_name}")
+        print(f"Наиболее  часто  встречающееся  имя: {most_common_name}")
     except (FileNotFoundError, ValueError) as e:
         print(e)
 
