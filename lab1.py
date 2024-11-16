@@ -1,5 +1,5 @@
 import re
-import sys
+import argparse
 from collections import Counter
 from typing import List
 
@@ -14,9 +14,8 @@ def read_file(file_name: str) -> List[str]:
     try:
         with open(file_name, 'r', encoding='utf-8') as file:
             return file.readlines()
-    except FileNotFoundError:
-        print(f"Ошибка: Файл '{file_name}' не найден.")
-        sys.exit(1)
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"Ошибка: Файл '{file_name}' не найден.") from e
 
 
 def extract_names(data: List[str]) -> List[str]:
@@ -44,7 +43,7 @@ def find_most_common_name(names: List[str]) -> str:
     :return: Наиболее часто встречающееся имя.
     """
     if not names:
-        return "Имена не найдены"
+        raise ValueError("Ошибка: Имена не найдены в данных.")
 
     counter = Counter(names)
     most_common_name, _ = counter.most_common(1)[0]
@@ -55,16 +54,17 @@ def main():
     """
     Главная функция для чтения файла, извлечения имен и поиска наиболее частого имени.
     """
-    if len(sys.argv) < 2:
-        print("Ошибка: Укажите название файла в аргументах командной строки.")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(description="Поиск наиболее часто встречающегося имени в файле.")
+    parser.add_argument('file_name', type=str, help="Название файла для анализа")
+    args = parser.parse_args()
 
-    file_name = sys.argv[1]
-    data = read_file(file_name)
-    names = extract_names(data)
-    most_common_name = find_most_common_name(names)
-
-    print(f"Наиболее часто встречающееся имя: {most_common_name}")
+    try:
+        data = read_file(args.file_name)
+        names = extract_names(data)
+        most_common_name = find_most_common_name(names)
+        print(f"Наиболее часто встречающееся имя: {most_common_name}")
+    except (FileNotFoundError, ValueError) as e:
+        print(e)
 
 
 if __name__ == '__main__':
