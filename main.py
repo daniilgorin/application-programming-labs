@@ -34,8 +34,8 @@ def crawler(keyword:str, folder:str)->None:
 
 def create_annotation(folder:str, csv_file:str)->None:
     """
-    Создает аннотацию, куда записывается абсолютный и относительный путь к каждому изображению
-    :param folder: Папка с изображениями
+    Создает аннотацию, куда  записывается абсолютный и относительный путь к каждому изображению
+    :param folder:  Папка с изображениями
     :param csv_file: Имя файла с аннотацией
     """
     folder_path = os.path.join(os.getcwd(), folder)
@@ -58,7 +58,7 @@ def main():
         for row in ImageIterator.ImageIterator(annotation):
             print(row)
     except Exception as e:
-        print(f"Ошибка при доступе к дирректории: {e} ")
+        print(f"Ошибка  при доступе к дирректории: {e} ")
 
 if __name__ == "__main__":
     main()
