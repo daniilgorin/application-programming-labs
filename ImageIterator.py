@@ -21,3 +21,4 @@ class ImageIterator:
         except StopIteration:
             self.file.close()
             raise
+

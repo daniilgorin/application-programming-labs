@@ -6,7 +6,7 @@ from icrawler.builtin import GoogleImageCrawler
 
 def crawler(keyword:str, folder:str)->None:
     """
-    Скачивает изображения в указанную пaпку
+    Скачивает изображения в указанную папку
     :param keyword: Ключевое слово для скачивания изображений
     :param folder: Папка для хранения изображений
     """
