@@ -1,32 +1,36 @@
 import argparse
+import cv2
 
-import Operations
-import ImageIterator
+import ImageOperations
+import Hist
+
 
 def create_parser()->tuple:
     """
-    Пользаватель вводит ключевое слово, папку, куда будут сохраняться изображения, и названия csv файла для аннотации
-    :return: Кортеж состоящий из ключевого слова, папки с изображениями и имени файла аннотации
+    Получает от пользователя путь до изображения, путь для сохранения преобразованного изображения,
+    новые размер и ширину для преобразованного изображения
+    :return: Кортеж состоящий из пути до изображения, пути сохранения результата, новых высоты и ширины изображения
     """
-    parser=argparse.ArgumentParser()
-    parser.add_argument("word", type=str, help="the key word for uploading images")
-    parser.add_argument("save_folder", type=str, help="folder where images will be saved")
-    parser.add_argument("csv_file", type=str, help="csv file with annotation")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("img",type=str,help="path to the image")
+    parser.add_argument("save_path", type=str, help="path where result will be saved")
+    parser.add_argument("new_height", type=int, help="new height for the image")
+    parser.add_argument("new_width", type=int, help="new width for the image")
     args=parser.parse_args()
-    return args.word, args.save_folder, args.csv_file
+    return args.img, args.save_path, args.new_height, args.new_width
 
 
 def main():
-    try:
-        key_word, folder, annotation = create_parser()
-        print(key_word, folder, annotation)
-        Operations.crawler(key_word, folder)
-        Operations.create_annotation(folder, annotation)
+    image, save_path, new_height, new_width = create_parser()
 
-        for row in ImageIterator.ImageIterator(annotation):
-            print(row)
-    except Exception as e:
-        print(f"Ошибка при доступе к дирректории: {e} ")
+    img = cv2.imread(image)
+    cv2.imshow("Image", img)
+
+    ImageOperations.print_size(img)
+    Hist.show_hist(Hist.get_hist(img))
+    ImageOperations.resize_image(img, new_height, new_width, save_path)
+    ImageOperations.show_images(img, save_path)
+
 
 if __name__ == "__main__":
     main()
