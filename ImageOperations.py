@@ -12,7 +12,7 @@ def print_size(img: np.ndarray)->None:
     print(f"Высота изображения: {height} \nШирина изображения: {width}")
 
 
-def resize_image(img: np.ndarray, h:int, w:int, save_path: str)->None:
+def resize_image(img: np.ndarray, h:int, w:int, save_path: str)->np.ndarray:
     """
     Изменяет размер изображения на новые заданные параметры
     :param img: само изображение
@@ -22,6 +22,7 @@ def resize_image(img: np.ndarray, h:int, w:int, save_path: str)->None:
     """
     resized_img = cv2.resize(img,(w,h))
     cv2.imwrite(save_path, resized_img)
+    return cv2.imread(save_path)
 
 
 def show_images(img:np.ndarray, save_path: str)->None:

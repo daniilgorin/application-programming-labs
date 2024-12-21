@@ -21,15 +21,22 @@ def create_parser()->tuple:
 
 
 def main():
-    image, save_path, new_height, new_width = create_parser()
+    try:
+        image, save_path, new_height, new_width = create_parser()
 
-    img = cv2.imread(image)
-    cv2.imshow("Image", img)
+        img = cv2.imread(image)
+        cv2.imshow("Image", img)
 
-    ImageOperations.print_size(img)
-    Hist.show_hist(Hist.get_hist(img))
-    ImageOperations.resize_image(img, new_height, new_width, save_path)
-    ImageOperations.show_images(img, save_path)
+        ImageOperations.print_size(img)
+        Hist.show_hist(Hist.get_hist(img))
+
+        #Измененные размеры изображения
+        result = ImageOperations.resize_image(img, new_height, new_width, save_path)
+        ImageOperations.print_size(result)
+
+        ImageOperations.show_images(img, save_path)
+    except Exception as e:
+        print(f'Ошибка при доступе к директории: {e}')
 
 
 if __name__ == "__main__":
