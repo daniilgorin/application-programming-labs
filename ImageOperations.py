@@ -20,10 +20,9 @@ def resize_image(img: np.ndarray, h:int, w:int, save_path: str)->np.ndarray:
     :param w: новая ширина изображения
     :param save_path: путь, где новое изображение будет сохранено
     """
-    resized_img = cv2.resize(img,(w,h))
+    resized_img = cv2.resize(img, (w, h))
     cv2.imwrite(save_path, resized_img)
-    return cv2.imread(save_path)
-
+    return resized_img
 
 def show_images(img:np.ndarray, save_path: str)->None:
     """
