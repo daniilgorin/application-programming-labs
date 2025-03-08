@@ -15,7 +15,7 @@ def print_size(img: np.ndarray)->None:
 def resize_image(img: np.ndarray, h:int, w:int, save_path: str)->np.ndarray:
     """
     Изменяет размер изображения на новые заданные параметры
-    :param img: само  изображение
+    :param img: само изображение
     :param h: новая высота изображения
     :param w: новая ширина изображения
     :param save_path: путь, где новое изображение будет сохранено
