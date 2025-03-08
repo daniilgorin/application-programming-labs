@@ -21,7 +21,6 @@ def resize_image(img: np.ndarray, h:int, w:int, save_path: str)->np.ndarray:
     :param save_path: путь, где новое изображение будет сохранено
     """
     resized_img = cv2.resize(img, (w, h))
-    cv2.imwrite(save_path, resized_img)
     return resized_img
 
 def show_images(img:np.ndarray, save_path: str)->None:
